@@ -15,7 +15,19 @@ const styles = StyleSheet.create({
   }
 });
 
-const BigClock = ({ size = 300 }) => {
+interface ClockProps {
+  size?: number;
+  type: "TIMER" | "STOPWATCH";
+  duration: number;
+  color?: string;
+}
+
+const BigClock = ({
+  size = 300,
+  type,
+  duration,
+  color = colors.primary
+}: ClockProps) => {
   const { radius } = useCircle({ size });
   return (
     <>

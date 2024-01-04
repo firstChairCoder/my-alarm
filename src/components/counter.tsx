@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import { useContext, useEffect } from "react";
 
 import { colors } from "../constants/colors";
 import formatTime from "../utils/format-time";
 import useCounter from "../hooks/use-counter";
+import AppContext from "../context";
 
 const styles = StyleSheet.create({
   formatContainer: {
@@ -64,7 +66,30 @@ const CounterFormat = ({ type, time }: CounterFormatProps) => {
 };
 
 const Counter = ({ timer }: { timer?: number }) => {
-  const { controls, value } = useCounter({ timer });
+  const {
+    controls: { play, reset },
+    value
+  } = useCounter({ timer });
+  const context = useContext(AppContext);
+
+  useEffect(() => {
+    context.play ? play(true) : play(false);
+  }, [play]);
+
+  useEffect(() => {
+    context.reset > 0 && reset();
+  }, [reset]);
+
+  if (context.elapsed) {
+    context.elapsed.current = value;
+  }
+  if (timer && context.play && value === 0) {
+    setTimeout(() => {
+      reset();
+      Alert.alert("It is finished!!");
+    });
+  }
+
   return (
     <View style={{ position: "absolute" }}>
       <CounterFormat type={!timer ? "STOPWATCH" : "TIMER"} time={value} />

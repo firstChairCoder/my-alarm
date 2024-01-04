@@ -10,7 +10,8 @@ import {
 } from "react-native-reanimated";
 import { withPause } from "react-native-redash";
 
-const STOPWATCH_DURATION = 3600000;
+export const STOPWATCH_DURATION = 3600000;
+export const TIMER_DURATION = 10000;
 
 export default function useCounter({ timer }: { timer?: number }) {
   const duration = timer ? timer : STOPWATCH_DURATION;

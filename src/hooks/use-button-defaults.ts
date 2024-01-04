@@ -19,9 +19,9 @@ interface ButtonDefaultsProps {
 }
 
 function setDefaults({
-  iconColor,
-  iconSize,
-  maxScale,
+  iconColor = colors.white,
+  iconSize = 32,
+  maxScale = 1.1,
   customStyles,
   textStyles
 }: ButtonDefaultsProps) {
