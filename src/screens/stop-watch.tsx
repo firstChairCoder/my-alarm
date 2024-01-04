@@ -9,9 +9,9 @@ import { CustomButton } from "../components";
 
 const styles = StyleSheet.create({
   resultsBtn: {
+    elevation: 2,
     position: "absolute",
-    zIndex: 2
-    // top: -30
+    top: -30
   },
   container: { flex: 1 },
   clock: { flex: 2 },
@@ -53,7 +53,13 @@ export const Stopwatch = () => {
         <CustomClock style={styles.clock} />
         <View style={styles.bottom}>
           <View style={styles.resultsBtn}>
-            <CustomButton type={"TEXT"} size={80} />
+            <CustomButton
+              type={"TEXT"}
+              size={80}
+              onPress={() => controls.isModalOpen && controls.isModalOpen(true)}
+              label={`Results (${saved.length})`}
+              disabled={!saved.length}
+            />
           </View>
           <ActionBar />
         </View>

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-interface IControls {
+export interface IControls {
   play: () => void;
   reset: () => void;
   new?: () => void;
@@ -11,7 +11,7 @@ interface IControls {
 interface Context {
   play: boolean;
   reset: number;
-  saved?: boolean;
+  saved?: number[];
   elapsed?: {
     current: number;
   };
