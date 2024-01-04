@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 
 import { colors } from "../constants/colors";
+import formatTime from "../utils/format-time";
+import useCounter from "../hooks/use-counter";
 
 const styles = StyleSheet.create({
   formatContainer: {
@@ -26,31 +28,46 @@ const styles = StyleSheet.create({
   }
 });
 
-const CounterFormat = () => {
+interface CounterFormatProps {
+  type: "TIMER" | "STOPWATCH";
+  time: number;
+}
+
+const CounterFormat = ({ type, time }: CounterFormatProps) => {
+  const { hours, minutes, seconds, milliseconds } = formatTime({ time });
   return (
     <View style={styles.formatContainer}>
-      <Text style={styles.number}>h</Text>
-      <Text style={styles.label}>h</Text>
-      <Text style={styles.dot}>:</Text>
+      {type === "TIMER" && (
+        <>
+          <Text style={styles.number}>{hours}</Text>
+          <Text style={styles.label}>h</Text>
+          <Text style={styles.dot}>:</Text>
+        </>
+      )}
 
-      <Text style={styles.number}>m</Text>
+      <Text style={styles.number}>{minutes}</Text>
       <Text style={styles.label}>m</Text>
       <Text style={styles.dot}>:</Text>
 
-      <Text style={styles.number}>s</Text>
+      <Text style={styles.number}>{seconds}</Text>
       <Text style={styles.label}>s</Text>
 
-      <Text style={styles.dot}>:</Text>
-      <Text style={styles.number}>ms</Text>
-      <Text style={styles.label}>ms</Text>
+      {type === "STOPWATCH" && (
+        <>
+          <Text style={styles.dot}>:</Text>
+          <Text style={styles.number}>{milliseconds}</Text>
+          <Text style={styles.label}>ms</Text>
+        </>
+      )}
     </View>
   );
 };
 
-const Counter = () => {
+const Counter = ({ timer }: { timer?: number }) => {
+  const { controls, value } = useCounter({ timer });
   return (
     <View style={{ position: "absolute" }}>
-      <CounterFormat />
+      <CounterFormat type={!timer ? "STOPWATCH" : "TIMER"} time={value} />
     </View>
   );
 };
