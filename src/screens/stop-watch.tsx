@@ -5,7 +5,8 @@ import { useRef, useState } from "react";
 import type { IControls } from "../context";
 import { AppContextProvider } from "../context";
 import { ActionBar, CustomClock } from "./components";
-import { CustomButton } from "../components";
+import { CustomButton, ModalWrapper } from "../components";
+import Results from "./components/results";
 
 const styles = StyleSheet.create({
   resultsBtn: {
@@ -63,6 +64,10 @@ export const Stopwatch = () => {
           </View>
           <ActionBar />
         </View>
+
+        <ModalWrapper modalOpen={isModalOpen} header="Results">
+          <Results />
+        </ModalWrapper>
       </View>
     </AppContextProvider>
   );
