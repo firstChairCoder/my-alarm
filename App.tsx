@@ -13,7 +13,7 @@ import {
 
 import { colors } from "./src/constants/colors";
 import { TabSwitcher } from "./src/components";
-import { Stopwatch } from "./src/screens";
+import { Stopwatch, Timer } from "./src/screens";
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.black,
@@ -41,10 +41,12 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <View style={styles.innerWrapper}>
-          <View style={styles.body}>{tab === 0 ? <Stopwatch /> : null}</View>
+          <View style={styles.body}>
+            {tab === 0 ? <Stopwatch /> : <Timer />}
+          </View>
 
           <StatusBar style="auto" />
-          <TabSwitcher />
+          <TabSwitcher activeIndex={tab} setTabIndex={setTab} />
         </View>
       </View>
     </SafeAreaView>
