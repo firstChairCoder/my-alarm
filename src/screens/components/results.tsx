@@ -108,7 +108,10 @@ function TimedItem({
 }
 
 const Results = () => {
-  const { saved } = useContext(AppContext);
+  const {
+    saved,
+    controls: { isModalOpen }
+  } = useContext(AppContext);
   const [sorted, setSorted] = useState(false);
 
   const normalSaved =
@@ -157,7 +160,7 @@ const Results = () => {
             type="TEXT"
             size={50}
             label="Close"
-            onPress={() => true}
+            onPress={() => isModalOpen && isModalOpen(false)}
           />
         </View>
 
@@ -167,7 +170,7 @@ const Results = () => {
             type="TEXT"
             size={50}
             label="Sort"
-            onPress={() => true}
+            onPress={() => setSorted(!sorted)}
           />
         </View>
       </View>
